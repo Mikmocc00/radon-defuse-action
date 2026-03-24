@@ -15,7 +15,7 @@ if not model or not language or not url_base:
     print("❌ Errore: model, language e url sono obbligatori.")
     sys.exit(1)
 
-SUPPORTED_LANGUAGES = ['terraform', 'kubernetes']
+SUPPORTED_LANGUAGES = ['ansible', 'tosca', 'terraform', 'kubernetes']
 if language not in SUPPORTED_LANGUAGES:
     print(f"⚠️ Linguaggio '{language}' non supportato. Scegli tra: {', '.join(SUPPORTED_LANGUAGES)}")
     sys.exit(1)
@@ -37,7 +37,15 @@ print(f"📦 Modello: {model} | 🌐 Backend: {url_base} | 🗂 Linguaggio: {lan
 
 
 def extract_metrics(language: str, content: str) -> dict:
-    if language == 'terraform':
+    if language == 'ansible':
+        from ansiblemetrics.metrics_extractor import extract_all as extract_ansible
+        return extract_ansible(content)
+
+    elif language == 'tosca':
+        from toscametrics.metrics_extractor import extract_all as extract_tosca
+        return extract_tosca(content)
+
+    elif language == 'terraform':
         from repominer.metrics.terraform import TerraformMetricsExtractor
         extractor = TerraformMetricsExtractor(
             path_to_repo='/github/workspace',
@@ -47,14 +55,15 @@ def extract_metrics(language: str, content: str) -> dict:
         return extractor.get_product_metrics(content)
 
     elif language == 'kubernetes':
-        # Usa direttamente la funzione extract_kubernetes della tua libreria
         from kubernetes_metrics import extract_kubernetes
         return extract_kubernetes(content)
 
 
 FILE_EXTENSIONS = {
+    'ansible':    ('.yml', '.yaml'),
+    'tosca':      ('.yml', '.yaml', '.tosca'),
     'terraform':  ('.tf',),
-    'kubernetes': ('.yaml', '.yml'),
+    'kubernetes': ('.yml', '.yaml'),
 }
 
 target_extensions = FILE_EXTENSIONS[language]
