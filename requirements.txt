@@ -1,0 +1,7 @@
+PyGithub==1.55
+requests==2.26.0
+python-hcl2
+pyyaml
+git+https://github.com/Mikmocc00/radon-terraform-metrics.git
+git+https://github.com/Mikmocc00/radon-repository-miner.git
+git+https://github.com/Mikmocc00/radon-kubernetes-metrics.git

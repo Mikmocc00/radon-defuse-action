@@ -1,0 +1,19 @@
+name: 'RADON DEFUSE GitHub Action'
+description: 'Perform Software Defect Prediction on Terraform and Kubernetes files'
+inputs:
+  model:
+    description: 'Model ID from the DEFUSE Model Manager dashboard'
+    required: true
+  language:
+    description: 'Language for prediction. Choices: terraform|kubernetes'
+    required: true
+  url:
+    description: 'URL to the DEFUSE backend'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.model }}
+    - ${{ inputs.language }}
+    - ${{ inputs.url }}
