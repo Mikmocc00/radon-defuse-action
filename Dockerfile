@@ -12,8 +12,7 @@ RUN git config --global --add safe.directory '*'
 
 COPY entrypoint.py /entrypoint.py
 COPY requirements.txt /requirements.txt
-COPY extractors/ /extractors/
 
-RUN pip3 install -r requirements.txt
+RUN pip3 install --no-cache-dir -r requirements.txt
 
 ENTRYPOINT ["python3", "/entrypoint.py"]
