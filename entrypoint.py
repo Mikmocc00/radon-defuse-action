@@ -56,7 +56,7 @@ def extract_metrics(language: str, content: str) -> dict:
 
     elif language == 'kubernetes':
         from repominer.metrics.kubernetes import KubernetesMetricsExtractor
-        extractor = TerraformMetricsExtractor(
+        extractor = KubernetesMetricsExtractor(
             path_to_repo='/github/workspace',
             clone_repo_to='/github/workspace',
             at='release'
@@ -64,8 +64,8 @@ def extract_metrics(language: str, content: str) -> dict:
         return extractor.get_product_metrics(content)
 
     elif language == 'docker':
-        from repominer.metrics.docker import KubernetesMetricsExtractor
-        extractor = TerraformMetricsExtractor(
+        from repominer.metrics.docker import DockerMetricsExtractor
+        extractor = DockerMetricsExtractor(
             path_to_repo='/github/workspace',
             clone_repo_to='/github/workspace',
             at='release'
