@@ -15,7 +15,7 @@ if not model or not language or not url_base:
     print("❌ Errore: model, language e url sono obbligatori.")
     sys.exit(1)
 
-SUPPORTED_LANGUAGES = ['ansible', 'tosca', 'terraform', 'kubernetes']
+SUPPORTED_LANGUAGES = ['ansible', 'tosca', 'terraform', 'kubernetes', 'docker']
 if language not in SUPPORTED_LANGUAGES:
     print(f" Linguaggio '{language}' non supportato. Scegli tra: {', '.join(SUPPORTED_LANGUAGES)}")
     sys.exit(1)
@@ -58,20 +58,33 @@ def extract_metrics(language: str, content: str) -> dict:
         from kubernetes_metrics import extract_kubernetes
         return extract_kubernetes(content)
 
+    elif language == 'docker':
+        from docker_metrics import extract_docker
+        return extract_docker(content)
+
 
 FILE_EXTENSIONS = {
     'ansible':    ('.yml', '.yaml'),
     'tosca':      ('.yml', '.yaml', '.tosca'),
     'terraform':  ('.tf',),
     'kubernetes': ('.yml', '.yaml'),
+    'docker':     ('Dockerfile', '.dockerfile'),
 }
 
 target_extensions = FILE_EXTENSIONS[language]
 found_files = False
 
 for file in files:
-    if not file.filename.endswith(target_extensions):
-        continue
+    if language == 'docker':
+        is_dockerfile = (
+            file.filename == "Dockerfile" or
+            file.filename.endswith(".dockerfile")
+        )
+        if not is_dockerfile:
+            continue
+    else:   
+        if not file.filename.endswith(target_extensions):
+            continue
 
     try:
         content = repo.get_contents(file.filename, ref=github_sha).decoded_content.decode()

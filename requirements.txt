@@ -5,3 +5,4 @@ pyyaml
 git+https://github.com/Mikmocc00/radon-terraform-metrics.git
 git+https://github.com/Mikmocc00/radon-repository-miner.git
 git+https://github.com/Mikmocc00/radon-kubernetes-metrics.git
+git+https://github.com/Mikmocc00/radon-docker-metrics.git
