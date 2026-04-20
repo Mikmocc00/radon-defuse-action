@@ -12,7 +12,7 @@ language = os.getenv('INPUT_LANGUAGE') or (sys.argv[2] if len(sys.argv) > 2 else
 url_base = os.getenv('INPUT_URL')      or (sys.argv[3] if len(sys.argv) > 3 else None)
 
 if not model or not language or not url_base:
-    print("❌ Errore: model, language e url sono obbligatori.")
+    print("Errore: model, language e url sono obbligatori.")
     sys.exit(1)
 
 SUPPORTED_LANGUAGES = ['ansible', 'tosca', 'terraform', 'kubernetes', 'docker']
