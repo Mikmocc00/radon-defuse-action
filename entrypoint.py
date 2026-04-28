@@ -32,7 +32,7 @@ g     = Github(github_token)
 repo  = g.get_repo(github_repo)
 files = repo.get_commit(sha=github_sha).files
 
-print(f"\n🔍 Analisi commit {github_sha} su repo {github_repo}")
+print(f"\nAnalisi commit {github_sha} su repo {github_repo}")
 print(f" Modello: {model} |  Backend: {url_base} |  Linguaggio: {language}\n")
 
 
@@ -102,9 +102,8 @@ for file in files:
         print(f" Impossibile leggere {file.filename}: {e}")
         continue
 
-    # Per Kubernetes skippa file .yml che non sono manifest
     if language == 'kubernetes' and 'kind:' not in content:
-        print(f"⏭ Skip {file.filename} (non sembra un manifest Kubernetes)")
+        print(f"Skip {file.filename} (non sembra un manifest Kubernetes)")
         continue
 
     found_files = True
