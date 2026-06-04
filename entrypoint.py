@@ -46,31 +46,28 @@ def extract_metrics(language: str, content: str) -> dict:
         return extract_tosca(content)
 
     elif language == 'terraform':
-        from repominer.metrics.terraform import TerraformMetricsExtractor
-        extractor = TerraformMetricsExtractor(
-            path_to_repo='/github/workspace',
-            clone_repo_to='/github/workspace',
-            at='release'
-        )
-        return extractor.get_product_metrics(content)
+    from repominer.metrics.terraform import TerraformMetricsExtractor
+    extractor = TerraformMetricsExtractor(
+        path_to_repo='/github/workspace',
+        at='commit'                       
+    )
+    return extractor.get_product_metrics(content)
 
     elif language == 'kubernetes':
-        from repominer.metrics.kubernetes import KubernetesMetricsExtractor
-        extractor = KubernetesMetricsExtractor(
-            path_to_repo='/github/workspace',
-            clone_repo_to='/github/workspace',
-            at='release'
-        )
-        return extractor.get_product_metrics(content)
+    from repominer.metrics.kubernetes import KubernetesMetricsExtractor
+    extractor = KubernetesMetricsExtractor(
+        path_to_repo='/github/workspace',
+        at='commit'
+    )
+    return extractor.get_product_metrics(content)
 
-    elif language == 'docker':
-        from repominer.metrics.docker import DockerMetricsExtractor
-        extractor = DockerMetricsExtractor(
-            path_to_repo='/github/workspace',
-            clone_repo_to='/github/workspace',
-            at='release'
-        )
-        return extractor.get_product_metrics(content)
+elif language == 'docker':
+    from repominer.metrics.docker import DockerMetricsExtractor
+    extractor = DockerMetricsExtractor(
+        path_to_repo='/github/workspace',
+        at='commit'
+    )
+    return extractor.get_product_metrics(content)
 
 
 FILE_EXTENSIONS = {
