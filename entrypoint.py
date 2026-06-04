@@ -47,26 +47,18 @@ def extract_metrics(language: str, content: str) -> dict:
 
     elif language == 'terraform':
     from repominer.metrics.terraform import TerraformMetricsExtractor
-    extractor = TerraformMetricsExtractor(
-        path_to_repo='/github/workspace',
-        at='commit'                       
-    )
+    # Crea un'istanza minimale senza traversare il repo
+    extractor = TerraformMetricsExtractor.__new__(TerraformMetricsExtractor)
     return extractor.get_product_metrics(content)
 
-    elif language == 'kubernetes':
+elif language == 'kubernetes':
     from repominer.metrics.kubernetes import KubernetesMetricsExtractor
-    extractor = KubernetesMetricsExtractor(
-        path_to_repo='/github/workspace',
-        at='commit'
-    )
+    extractor = KubernetesMetricsExtractor.__new__(KubernetesMetricsExtractor)
     return extractor.get_product_metrics(content)
 
 elif language == 'docker':
     from repominer.metrics.docker import DockerMetricsExtractor
-    extractor = DockerMetricsExtractor(
-        path_to_repo='/github/workspace',
-        at='commit'
-    )
+    extractor = DockerMetricsExtractor.__new__(DockerMetricsExtractor)
     return extractor.get_product_metrics(content)
 
 
