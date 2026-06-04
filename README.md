@@ -30,7 +30,7 @@ jobs:
     steps:
       - name: Defect Prediction
         id: defect_prediction
-        uses: Mikmocc00/radon-defuse-action@v1.1
+        uses: Mikmocc00/radon-defuse-action@v1.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
