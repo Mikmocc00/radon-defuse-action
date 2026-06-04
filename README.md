@@ -30,7 +30,7 @@ jobs:
     steps:
       - name: Defect Prediction
         id: defect_prediction
-        uses: radon-h2020/radon-defuse-action@v1.1
+        uses: Mikmocc00/radon-defuse-action@v1.1
         with:
           model: 'NEWEKjxoBvRdTopqjjKW'
           language: 'terraform'
