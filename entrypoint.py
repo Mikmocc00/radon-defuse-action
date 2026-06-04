@@ -46,20 +46,20 @@ def extract_metrics(language: str, content: str) -> dict:
         return extract_tosca(content)
 
     elif language == 'terraform':
-    from repominer.metrics.terraform import TerraformMetricsExtractor
-    # Crea un'istanza minimale senza traversare il repo
-    extractor = TerraformMetricsExtractor.__new__(TerraformMetricsExtractor)
-    return extractor.get_product_metrics(content)
+        from repominer.metrics.terraform import TerraformMetricsExtractor
+        # Crea un'istanza minimale senza traversare il repo
+        extractor = TerraformMetricsExtractor.__new__(TerraformMetricsExtractor)
+        return extractor.get_product_metrics(content)
 
-elif language == 'kubernetes':
-    from repominer.metrics.kubernetes import KubernetesMetricsExtractor
-    extractor = KubernetesMetricsExtractor.__new__(KubernetesMetricsExtractor)
-    return extractor.get_product_metrics(content)
+    elif language == 'kubernetes':
+        from repominer.metrics.kubernetes import KubernetesMetricsExtractor
+        extractor = KubernetesMetricsExtractor.__new__(KubernetesMetricsExtractor)
+        return extractor.get_product_metrics(content)
 
-elif language == 'docker':
-    from repominer.metrics.docker import DockerMetricsExtractor
-    extractor = DockerMetricsExtractor.__new__(DockerMetricsExtractor)
-    return extractor.get_product_metrics(content)
+    elif language == 'docker':
+        from repominer.metrics.docker import DockerMetricsExtractor
+        extractor = DockerMetricsExtractor.__new__(DockerMetricsExtractor)
+        return extractor.get_product_metrics(content)
 
 
 FILE_EXTENSIONS = {
